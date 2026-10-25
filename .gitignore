@@ -45,3 +45,7 @@ Rules/
 
 # TypeScript incremental build info
 *.tsbuildinfo
+
+# Playwright output
+test-results
+playwright-report
