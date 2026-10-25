@@ -1,0 +1,79 @@
+version: 2
+
+# Scaffold CLI Configuration
+project:
+  # Your Rust/Soroban contract source.
+  contracts-dir: contracts
+
+  # Generated TypeScript packages to communicate with your contracts
+  # imported as `@stellar-scaffold/app-lib/clients`:
+  #   - app-lib/clients/<name>/   one generated binding package per contract
+  #   - app-lib/clients/index.ts  instantiates and exports every client
+  #
+  # To customize a client, import it into your own code under app/ instead of
+  # editing the generated file. Everything here is gitignored except .gitkeep.
+  clients-dir: app-lib/clients
+  package-manager: npm@10.9.9
+
+# Stellar Networks used by your app. Pick one with `--network <name>` or
+# STELLAR_NETWORK; the default is `local`. Built-in names (local, testnet,
+# futurenet, mainnet) get their RPC URL and passphrase from stellar-cli.
+networks:
+  # Using the Stellar-Quickstart Docker container
+  local:
+    # Created and funded on first build, the first account will sign deploys
+    accounts: [me]
+
+  # Testnet is staging: a dry run for mainnet. Deploy there deliberately, then
+  # point contracts at those deployments below. Public networks never deploy
+  # from `build` or `watch` unless you opt in with `allow-deploy: true`.
+  testnet:
+    # Funded with Friendbot on first build. Keep testnet keys separate from
+    # local ones, as you would for mainnet.
+    accounts: [admin]
+
+  # To redeploy freely on testnet while developing, add a separate network
+  # that opts in, and build for it with STELLAR_NETWORK=testnet-dev:
+  # testnet-dev:
+  #   extends: testnet
+  #   allow-deploy: true
+
+  # mainnet:
+  #   # stellar-cli has no default mainnet RPC; bring your own
+  #   rpc-url: https://your-rpc-provider.example
+  #   rpc-headers:
+  #     Authorization: "Bearer ${env.MAINNET_RPC_TOKEN}"
+  #   accounts: [mainnet-user]
+
+# Contracts to build, deploy, and generate clients for. Keys directly under a
+# contract are defaults for every network it lists; entries under `networks:`
+# override them. A contract only exists on the networks it lists, so building
+# another network skips it and leaves it out of the generated clients.
+contracts:
+  # Scaffold sample, kept until fx_vault replaces it in the UI
+  guess-the-number:
+    networks:
+      testnet:
+        type: contract
+        source: CAHXDFYU4Q4FDV5DNVPSNQ4ESOTFXTOJV5QPUXASLUV47NMSUO3AC75Y
+
+  # Reflector-compatible FX oracle (relay or manual price for the demo)
+  demo-oracle:
+    networks:
+      testnet:
+        type: contract
+        source: CBZTPM7A6HJWRMVNLBUQ3C7VSXT2ZMWX5PAWSIC7XAQ72TWIKP332SYJ
+
+  # LP vault (OpenZeppelin SEP-56): deposits, shares, payouts to fx_vault
+  lp-vault:
+    networks:
+      testnet:
+        type: contract
+        source: CDBSXHPF5DYJUUFLLQK2JWRNLBBV7TFYKFTJUPTDTKEAJXFJ7E6ZOTHI
+
+  # FX hedges: forward rate, margins, fixing, settlement
+  fx-vault:
+    networks:
+      testnet:
+        type: contract
+        source: CBRJ6VSKB44BSCCJVMYT3CFDXHAEGJUXQFBPSGAW76W6IZCJEZRVR2VH
