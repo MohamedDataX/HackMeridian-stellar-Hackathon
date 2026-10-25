@@ -50,13 +50,6 @@ networks:
 # override them. A contract only exists on the networks it lists, so building
 # another network skips it and leaves it out of the generated clients.
 contracts:
-  # Scaffold sample, kept until fx_vault replaces it in the UI
-  guess-the-number:
-    networks:
-      testnet:
-        type: contract
-        source: CAHXDFYU4Q4FDV5DNVPSNQ4ESOTFXTOJV5QPUXASLUV47NMSUO3AC75Y
-
   # Reflector-compatible FX oracle (relay or manual price for the demo)
   demo-oracle:
     networks:
@@ -77,3 +70,17 @@ contracts:
       testnet:
         type: contract
         source: CBRJ6VSKB44BSCCJVMYT3CFDXHAEGJUXQFBPSGAW76W6IZCJEZRVR2VH
+
+  # Demo USDC (classic asset TUSDC issued by admin, through its SAC)
+  tusdc:
+    networks:
+      testnet:
+        type: contract
+        source: CA7FJLZBU7I5XIBXTEVP52VIIQG2V3TCFCNTQW2VOELYTSUMGNQQFXGI
+
+  # Real Reflector FX feed, shown next to the demo price
+  reflector-fx:
+    networks:
+      testnet:
+        type: contract
+        source: CCSSOHTBL3LEWUCBBEB5NJFC2OKFRC74OWEIJIZLRJBGAAU4VMU5NV4W
