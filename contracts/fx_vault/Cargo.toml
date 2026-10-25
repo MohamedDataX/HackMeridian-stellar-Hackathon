@@ -1,0 +1,18 @@
+[package]
+name = "fx-vault"
+description = "EUR/USD cash-settled forwards with margin calls, backed by lp_vault"
+edition.workspace = true
+license.workspace = true
+publish = false
+version.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+doctest = false
+
+[dependencies]
+soroban-sdk = { workspace = true }
+
+[dev-dependencies]
+soroban-sdk = { workspace = true, features = ["testutils"] }
+lp-vault = { path = "../lp_vault" }
