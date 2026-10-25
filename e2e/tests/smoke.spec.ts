@@ -16,10 +16,8 @@ test("contract explorer link is present", async ({ page }) => {
 	await expect(page.locator('a[href="/debug"]').first()).toBeVisible()
 })
 
-test("guess-the-number sample contract form is present", async ({ page }) => {
+test("hedge form is present", async ({ page }) => {
 	await page.goto("/")
-	await expect(
-		page.getByPlaceholder("Guess a number from 1 to 10!"),
-	).toBeVisible()
-	await expect(page.getByRole("button", { name: "Submit" })).toBeVisible()
+	await expect(page.getByText("Order amount (EUR)")).toBeVisible()
+	await expect(page.getByRole("button", { name: /I receive EUR/ })).toBeVisible()
 })
