@@ -47,7 +47,7 @@ export default function Dashboard() {
 						>
 							{Object.values(PROFILES).map((p) => (
 								<option key={p.id} value={p.id}>
-									{p.name} ({p.role.split(" ")[0]})
+									{p.name}
 								</option>
 							))}
 						</select>

@@ -64,7 +64,7 @@ export default function Landing() {
 		{
 			icon: Factory,
 			name: "Manufacturer",
-			tag: "Receive EUR",
+			tag: "Pays USD, receives EUR",
 			kpi: pct(down),
 			kpiLabel: "Fee from",
 			id: "manufacturer",
@@ -74,7 +74,7 @@ export default function Landing() {
 		{
 			icon: Cpu,
 			name: "Foundry",
-			tag: "Pay EUR",
+			tag: "Pays EUR, receives USD",
 			kpi: `${im * 100}%`,
 			kpiLabel: "Initial margin",
 			id: "foundry",

@@ -20,7 +20,7 @@ export const PROFILES: Record<string, Profile> = {
 	manufacturer: {
 		id: "manufacturer",
 		name: "Manufacturer",
-		role: "Manufacturer (Receive EUR)",
+		role: "Manufacturer · pays USD, receives EUR",
 		type: "corporate",
 		icon: Factory,
 		address: addressOf("Manufacturer"),
@@ -28,7 +28,7 @@ export const PROFILES: Record<string, Profile> = {
 	foundry: {
 		id: "foundry",
 		name: "Foundry",
-		role: "Foundry (Pay EUR)",
+		role: "Foundry · pays EUR, receives USD",
 		type: "corporate",
 		icon: Cpu,
 		address: addressOf("Foundry"),

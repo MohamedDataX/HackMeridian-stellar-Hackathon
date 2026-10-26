@@ -121,11 +121,11 @@ export default function CorporateTerminal({ profile }: { profile: Profile }) {
 							>
 								<div className="flex items-center justify-between mb-1">
 									<span className={`font-semibold text-sm ${direction === "receive" ? "text-sky-900" : "text-slate-700"}`}>
-										Receive EUR
+										Pays USD · Receives EUR
 									</span>
 									<TrendingDown className={`w-4 h-4 ${direction === "receive" ? "text-sky-600" : "text-slate-400"}`} />
 								</div>
-								<p className="text-xs text-slate-500">Hedging export revenue</p>
+								<p className="text-xs text-slate-500">Chips bought in USD, sales in EUR</p>
 							</button>
 							<button
 								onClick={() => setDirection("pay")}
@@ -133,11 +133,11 @@ export default function CorporateTerminal({ profile }: { profile: Profile }) {
 							>
 								<div className="flex items-center justify-between mb-1">
 									<span className={`font-semibold text-sm ${direction === "pay" ? "text-sky-900" : "text-slate-700"}`}>
-										Pay EUR
+										Pays EUR · Receives USD
 									</span>
 									<TrendingUp className={`w-4 h-4 ${direction === "pay" ? "text-sky-600" : "text-slate-400"}`} />
 								</div>
-								<p className="text-xs text-slate-500">Hedging supplier costs</p>
+								<p className="text-xs text-slate-500">Equipment paid in EUR, revenue in USD</p>
 							</button>
 						</div>
 					</div>
@@ -308,7 +308,7 @@ function PositionCard({
 			<div className="md:col-span-3">
 				<div className="text-xs text-slate-400 font-semibold uppercase tracking-wider mb-1">Contract ID</div>
 				<div className="font-mono text-slate-900 font-semibold mb-1">NDF-{h.id}</div>
-				<div className="text-sm text-slate-600">{h.side.tag === "SellEur" ? "Receive EUR" : "Pay EUR"}</div>
+				<div className="text-sm text-slate-600">{h.side.tag === "SellEur" ? "Pays USD · Receives EUR" : "Pays EUR · Receives USD"}</div>
 			</div>
 
 			<div className="md:col-span-3">

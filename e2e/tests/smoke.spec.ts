@@ -18,7 +18,7 @@ test("connect page lists the personas", async ({ page }) => {
 test("corporate terminal shows the quote form", async ({ page }) => {
 	await page.goto("/app/manufacturer")
 	await expect(page.getByText("Notional Amount (EUR)")).toBeVisible()
-	await expect(page.getByRole("button", { name: /Receive EUR/ })).toBeVisible()
+	await expect(page.getByRole("button", { name: /Receives EUR/ })).toBeVisible()
 	await expect(page.getByRole("button", { name: /Lock Rate/ })).toBeVisible()
 })
 
