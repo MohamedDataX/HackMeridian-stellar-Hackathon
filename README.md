@@ -1,4 +1,4 @@
-# FX Hedge Vault
+# Zepho
 
 **Lock your EUR/USD rate from order to delivery, settled in USDC on Stellar.**
 
@@ -6,7 +6,7 @@ HackMeridian 2026 · Genesis track (Stellar Composed) · B2B2B
 
 A computer maker pays its chips in dollars and sells to European distributors in euros, a year ahead. If the euro falls 5 %, a 1,000,000 EUR order brings 55,000 USD less. Bank forwards are opaque and need a credit line. Meanwhile, other companies in the same chain pay suppliers in euros and lose when the euro rises: their risks offset, but nothing connects them.
 
-FX Hedge Vault connects them. A company locks a forward rate on a monthly maturity. Opposite hedges on the same maturity offset each other. A liquidity vault backs only the gap and earns the fees. At maturity, one oracle fixing settles every hedge in USDC, in seconds.
+Zepho connects them. A company locks a forward rate on a monthly maturity. Opposite hedges on the same maturity offset each other. A liquidity vault backs only the gap and earns the fees. At maturity, one oracle fixing settles every hedge in USDC, in seconds.
 
 The protocol is infrastructure for a regulated partner (FX broker, bank, payment institution) that runs KYC and distributes it to its business clients: **protocol → regulated partner → manufacturers → their European customers**.
 
