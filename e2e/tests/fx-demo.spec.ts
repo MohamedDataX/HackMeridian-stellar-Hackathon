@@ -24,8 +24,23 @@ test.skip(
 
 const MATURITY_MINUTES = 4
 
+/** FX_SHOTS_DIR saves a sharp screenshot of each step, e.g. for the demo film. */
+const SHOTS = process.env.FX_SHOTS_DIR
+let shotCount = 0
+async function shot(page: Page, name: string) {
+	if (!SHOTS) return
+	await page.waitForTimeout(1_500)
+	shotCount += 1
+	await page.screenshot({
+		path: `${SHOTS}/${String(shotCount).padStart(2, "0")}-${name}.png`,
+	})
+}
+
 async function actor(browser: Browser, secret: string) {
-	const page = await browser.newPage()
+	const context = await browser.newContext(
+		SHOTS ? { viewport: { width: 1440, height: 900 }, deviceScaleFactor: 2 } : {},
+	)
+	const page = await context.newPage()
 	await connectFakeFreighter(page, Keypair.fromSecret(secret), {
 		onSign: "approve",
 	})
@@ -49,75 +64,95 @@ test("hedge, margin call, top-up, fixing and settlement", async ({
 	const foundry = await actor(browser, SECRETS.foundry!)
 	const provider = await actor(browser, SECRETS.provider!)
 
+
 	// Operator: real Reflector rate, maturity a few minutes away priced as 360 days
-	await operator.goto("/demo")
+	await operator.goto("/app/operator")
 	await act(operator, "Back to Reflector", "Back to Reflector")
 	await operator.getByLabel("In (minutes)").fill(String(MATURITY_MINUTES))
 	await operator.getByLabel("Priced as (days)").fill("360")
-	await act(operator, "Open maturity", "Open maturity")
+	await act(operator, "Open Maturity", "Open maturity")
 	const maturityOpenedAt = Date.now()
+	await shot(operator, "operator")
 
 	// Liquidity provider deposits
-	await provider.goto("/vault")
+	await provider.goto("/app/lp")
 	await provider.getByLabel("Amount (USDC)").fill("1000000")
 	await act(provider, /^Deposit$/, "Deposit")
+	await shot(provider, "lp-deposit")
 
 	// Two opposite hedges on the new maturity (the first open one)
-	await manufacturer.goto("/")
-	await manufacturer.getByRole("button", { name: /I receive EUR/ }).click()
-	await expect(manufacturer.getByRole("button", { name: /^Lock/ })).toBeVisible({
-		timeout: 30_000,
-	})
-	await act(manufacturer, /^Lock/, "Hedge")
-
-	await foundry.goto("/")
-	await foundry.getByRole("button", { name: /I pay EUR/ }).click()
-	await expect(foundry.getByRole("button", { name: /^Lock/ })).toBeVisible({
-		timeout: 30_000,
-	})
-	await act(foundry, /^Lock/, "Hedge")
+	for (const [page, id] of [
+		[manufacturer, "manufacturer"],
+		[foundry, "foundry"],
+	] as const) {
+		await page.goto(`/app/${id}`)
+		await expect(page.getByRole("button", { name: /Lock Rate/ })).toBeEnabled({
+			timeout: 30_000,
+		})
+		await shot(page, `${id}-quote`)
+		await act(page, /Lock Rate/, "Hedge")
+		await shot(page, `${id}-locked`)
+	}
+	await provider.reload()
+	await shot(provider, "lp-balanced")
 
 	// The euro dips: the foundry's hedge falls under its margin
-	await operator.goto("/demo")
-	await act(operator, "1.0800", "Set demo rate")
+	await operator.goto("/app/operator")
+	await act(operator, "1.0800", "Set rate")
+	await shot(operator, "operator-dip")
 
-	await foundry.goto("/hedges")
-	await foundry.getByLabel("Only my hedges").check()
-	const card = foundry.locator(".card", { hasText: "(you)" }).first()
-	await expect(card.getByText("Under margin")).toBeVisible({ timeout: 30_000 })
-	await card.getByRole("button", { name: "Start margin call" }).click()
-	await expect(foundry.getByText("Margin call: done").last()).toBeVisible({
-		timeout: 60_000,
-	})
-	await expect(card.getByText(/Margin call: .* left/)).toBeVisible({
-		timeout: 30_000,
-	})
-	await card.getByRole("button", { name: /^Top up/ }).click()
-	await expect(foundry.getByText("Top up: done").last()).toBeVisible({
-		timeout: 60_000,
-	})
-	await expect(card.getByText("Open", { exact: true })).toBeVisible({
-		timeout: 30_000,
-	})
+	await foundry.goto("/app/foundry")
+	await expect(
+		foundry.getByRole("button", { name: "Start Margin Call" }),
+	).toBeVisible({ timeout: 30_000 })
+	await shot(foundry, "foundry-under-margin")
+	await act(foundry, "Start Margin Call", "Margin call")
+	await expect(
+		foundry.getByRole("button", { name: "Top Up Collateral" }),
+	).toBeVisible({ timeout: 30_000 })
+	await shot(foundry, "foundry-call-active")
+	await act(foundry, "Top Up Collateral", "Top up")
+	await expect(
+		foundry.getByRole("button", { name: "Top Up Collateral" }),
+	).toHaveCount(0, { timeout: 30_000 })
+	await shot(foundry, "foundry-topped-up")
 
 	// Fixing at −5 % against K, once the maturity has passed
-	await operator.goto("/demo")
-	await act(operator, "1.0793", "Set demo rate")
+	await operator.goto("/app/operator")
+	await act(operator, "1.0793", "Set rate")
 	const wait = maturityOpenedAt + MATURITY_MINUTES * 60_000 + 15_000 - Date.now()
 	if (wait > 0) await operator.waitForTimeout(wait)
 
-	await operator.goto("/hedges")
-	await act(operator, "Record fixing", "Fixing")
+	await shot(operator, "operator-due")
+	// Fix every maturity due, older empty ones included
+	const fix = operator.getByRole("button", { name: "Record Fixing" })
+	while ((await fix.count()) > 0) {
+		await act(operator, "Record Fixing", "Fixing")
+		await operator.waitForTimeout(5_000)
+	}
 
-	// Settle every hedge of the maturity, from any account
-	const settle = operator.getByRole("button", { name: "Settle" })
+	// Settle every hedge of the maturity, from the operator account
+	const settle = operator.getByRole("button", { name: /^Settle NDF/ })
 	await expect(settle.first()).toBeVisible({ timeout: 30_000 })
+	await shot(operator, "operator-fixed")
 	for (let i = 0; i < 2; i++) {
-		await act(operator, "Settle", "Settle")
+		await act(operator, /^Settle NDF/, "Settle")
 		await operator.waitForTimeout(2_000)
 	}
 	await expect(settle).toHaveCount(0, { timeout: 30_000 })
+	for (const [page, name] of [
+		[manufacturer, "manufacturer-settled"],
+		[foundry, "foundry-settled"],
+		[provider, "lp-settled"],
+	] as const) {
+		await page.reload()
+		await shot(page, name)
+	}
+	await operator.goto("/")
+	await shot(operator, "landing")
+	await operator.goto("/connect")
+	await shot(operator, "connect")
+	await operator.goto("/app/operator")
 
-	await operator.goto("/demo")
 	await act(operator, "Back to Reflector", "Back to Reflector")
 })

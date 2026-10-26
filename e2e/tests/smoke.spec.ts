@@ -1,23 +1,29 @@
 import { test, expect } from "@playwright/test"
 
-test("home page mounts", async ({ page }) => {
+test("landing page mounts", async ({ page }) => {
 	const response = await page.goto("/")
 	expect(response?.ok()).toBeTruthy()
-	await expect(page.locator("body")).toBeVisible()
+	await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+		"Protect tomorrow's margins.",
+	)
 })
 
-test("wallet connect button is present", async ({ page }) => {
+test("connect page lists the personas", async ({ page }) => {
 	await page.goto("/")
-	await expect(page.getByRole("button", { name: /connect/i })).toBeVisible()
+	await page.getByRole("button", { name: "Launch App" }).click()
+	for (const name of ["Manufacturer", "Foundry", "Liquidity Provider", "Operator"])
+		await expect(page.getByText(name, { exact: true }).first()).toBeVisible()
 })
 
-test("contract explorer link is present", async ({ page }) => {
-	await page.goto("/")
-	await expect(page.locator('a[href="/debug"]').first()).toBeVisible()
+test("corporate terminal shows the quote form", async ({ page }) => {
+	await page.goto("/app/manufacturer")
+	await expect(page.getByText("Notional Amount (EUR)")).toBeVisible()
+	await expect(page.getByRole("button", { name: /Receive EUR/ })).toBeVisible()
+	await expect(page.getByRole("button", { name: /Lock Rate/ })).toBeVisible()
 })
 
-test("hedge form is present", async ({ page }) => {
-	await page.goto("/")
-	await expect(page.getByText("Order amount (EUR)")).toBeVisible()
-	await expect(page.getByRole("button", { name: /I receive EUR/ })).toBeVisible()
+test("liquidity vault terminal shows the KPIs", async ({ page }) => {
+	await page.goto("/app/lp")
+	await expect(page.getByText("Total Value Locked")).toBeVisible()
+	await expect(page.getByText("Net Exposure Allocation")).toBeVisible()
 })
