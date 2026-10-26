@@ -1,6 +1,6 @@
 .notification-container {
 	position: fixed;
-	top: 10px;
+	top: 12px;
 	left: 50%;
 	transform: translateX(-50%);
 	display: flex;
@@ -11,11 +11,13 @@
 
 .notification {
 	padding: 0.75rem 1rem;
-	border-radius: 6px;
+	border-radius: 10px;
 	font-size: 0.875rem;
-	border: 1px solid var(--color-border);
-	background: var(--color-bg);
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+	font-weight: 500;
+	border: 1px solid #e2e8f0;
+	background: #ffffff;
+	color: #0f172a;
+	box-shadow: 0 12px 40px rgba(15, 23, 42, 0.12);
 	min-width: 280px;
 	max-width: 400px;
 	transition:
@@ -34,16 +36,19 @@
 }
 
 .notification-success {
-	border-color: var(--color-success);
-	color: var(--color-success);
+	border-color: #a7f3d0;
+	background: #ecfdf5;
+	color: #047857;
 }
 
 .notification-error {
-	border-color: var(--color-error);
-	color: var(--color-error);
+	border-color: #fecdd3;
+	background: #fff1f3;
+	color: #be123c;
 }
 
 .notification-warning {
-	border-color: var(--color-warning);
-	color: var(--color-warning);
+	border-color: #fde68a;
+	background: #fffbeb;
+	color: #b45309;
 }
