@@ -27,3 +27,10 @@ test("liquidity vault terminal shows the KPIs", async ({ page }) => {
 	await expect(page.getByText("Total Value Locked")).toBeVisible()
 	await expect(page.getByText("Net Exposure Allocation")).toBeVisible()
 })
+
+test("pricing page shows the fees from the contract", async ({ page }) => {
+	await page.goto("/")
+	await page.getByRole("link", { name: "Pricing" }).click()
+	await expect(page.getByText("Zepho pricing tiers")).toBeVisible()
+	await expect(page.getByText("0.15%").first()).toBeVisible({ timeout: 15_000 })
+})
