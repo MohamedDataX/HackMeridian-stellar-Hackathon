@@ -1,4 +1,4 @@
-# FX Hedge Vault — 90 s demo film
+# Zepho — 90 s demo film
 
 GOAL:    show the real app (the enterprise-terminal design) running one full hedge cycle on testnet.
 OUTPUT:  HyperFrames, 1920 x 1080, 30 fps, no sound (the presenter talks over it).
