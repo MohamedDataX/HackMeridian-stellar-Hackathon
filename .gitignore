@@ -49,3 +49,12 @@ Rules/
 # Playwright output
 test-results
 playwright-report
+
+# Private research
+reports/
+
+# Video renders, captures and HyperFrames cache
+video/*.mp4
+video/assets/shots/
+video/.hyperframes/
+video/.thumbnails/
