@@ -282,7 +282,7 @@ export const SpotlightHeroCard: React.FC = () => {
                 <div style={{ fontSize: 52, fontWeight: 800, color: '#f6f3ec', textShadow: '0 2px 18px rgba(0,0,0,0.6)' }}>One rate,</div>
                 <div style={{ position: 'relative', display: 'inline-block', marginTop: 2 }}>
                   <div style={{ position: 'absolute', left: -6, top: '8%', bottom: '2%', width: `calc(${hl.toFixed(4)} * (100% + 12px))`, background: GOLD, borderRadius: 4 }} />
-                  <div style={{ position: 'relative', fontSize: 52, fontWeight: 800, color: hl > 0.55 ? '#06131c' : '#f6f3ec' }}>locked.</div>
+                  <div style={{ position: 'relative', fontSize: 52, fontWeight: 800, color: hl > 0.55 ? '#06131c' : '#f6f3ec' }}>live.</div>
                 </div>
               </div>
             </div>

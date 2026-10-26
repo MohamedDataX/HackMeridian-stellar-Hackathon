@@ -80,7 +80,7 @@ export const LogoShrinkWordmarkLockup: React.FC = () => {
   // 霓虹缺口态 → 实心白 O 交叉淡化（随收束进行）
   const heal = seg(t, 0.10, 0.28, E.inOutQuad);
   // 白 O → video-shotcraft 标志：落位刹车那一下（与冲击波同拍）交叉换成标志，换标时已缩到最终尺寸
-  const markIn = seg(t, 0.24, 0.32, E.inOutQuad);
+  const markIn = seg(t, 0.25, 0.29, E.inOutQuad); // quicker swap: no ring/hourglass overlap
   // 缩放残影：按每帧缩放量给强度，静止时为 0
   const ds = Math.abs(scaleAt(t) - scaleAt(t - DT));
   const trail = Math.min(1, ds / 0.35);
