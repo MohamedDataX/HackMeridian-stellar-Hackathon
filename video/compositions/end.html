@@ -1,0 +1,33 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #ffffff; font-family: Inter, sans-serif; color: #0f172a; }
+    #end-lockup { position: absolute; left: 0; right: 0; top: 330px; display: flex; justify-content: center; align-items: center; gap: 32px; }
+    #end-logo { width: 120px; height: 120px; border-radius: 30px; background: #0f172a; display: grid; place-items: center; }
+    #end-word { font-size: 104px; font-weight: 700; letter-spacing: -0.04em; }
+    #end-line { position: absolute; left: 0; right: 0; top: 540px; text-align: center; font-size: 60px; font-weight: 600; letter-spacing: -0.03em; }
+    #end-meta { position: absolute; left: 0; right: 0; top: 680px; text-align: center; font-size: 32px; color: #64748b; }
+    #end-meta b { font-family: "JetBrains Mono", monospace; font-weight: 500; color: #0f172a; }
+  </style>
+  <div id="root" data-composition-id="end" data-width="1920" data-height="1080">
+    <div id="end-card" class="clip" data-hold data-start="0" data-duration="10">
+      <div id="end-lockup">
+        <div id="end-logo">
+          <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" x2="21" y1="22" y2="22" /><line x1="6" x2="6" y1="18" y2="11" /><line x1="10" x2="10" y1="18" y2="11" /><line x1="14" x2="14" y1="18" y2="11" /><line x1="18" x2="18" y1="18" y2="11" /><polygon points="12 2 20 7 4 7" />
+          </svg>
+        </div>
+        <div id="end-word">FX Hedge Vault</div>
+      </div>
+      <div id="end-line">Protect tomorrow's margins.</div>
+      <div id="end-meta">Live on Stellar testnet · HackMeridian 2026 · <b>github.com/MohamedDataX/HackMeridian-stellar-Hackathon</b></div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#end-logo", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.6)" }, 0.2);
+    tl.fromTo("#end-word", { opacity: 0, clipPath: "inset(0 100% 0 0)" }, { opacity: 1, clipPath: "inset(0 0% 0 0)", duration: 0.6, ease: "power3.out" }, 0.5);
+    tl.fromTo("#end-line", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.25, ease: "power4.out" }, 1.3);
+    tl.fromTo("#end-meta", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 2.0);
+    window.__timelines["end"] = tl;
+  </script>
+</template>

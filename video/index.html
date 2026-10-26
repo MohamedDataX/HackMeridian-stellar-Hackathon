@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ground: #f8fafc;
+        --ink: #0f172a;
+        --muted: #64748b;
+        --line: #e2e8f0;
+        --eur: #3355ff;
+        --eur-soft: #eef1ff;
+        --usd: #0ea5a4;
+        --usd-soft: #ccfbf1;
+        --loss: #e11d48;
+        --loss-soft: #fff1f3;
+        --gain: #059669;
+        --gain-soft: #ecfdf5;
+        --dark: #0b1220;
+        --font-display: Inter, sans-serif;
+        --font-mono: "JetBrains Mono", monospace;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--ground);
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        font-family: var(--font-display);
+        color: var(--ink);
+      }
+      #ground {
+        position: absolute;
+        inset: 0;
+        background: var(--ground);
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-dy4d"
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="90"
+      data-width="1920"
+      data-height="1080"
+    >
+      <div data-hf-id="hf-7hg0" id="ground"></div>
+      <div id="intro" data-composition-id="intro" data-composition-src="compositions/intro.html"
+        data-start="0" data-duration="9" data-track-index="1" data-track-kind="graphics"
+        data-width="1920" data-height="1080"></div>
+      <div id="connect" data-composition-id="connect" data-composition-src="compositions/connect.html"
+        data-start="9" data-duration="6" data-track-index="1" data-track-kind="graphics"
+        data-width="1920" data-height="1080"></div>
+      <div id="lock" data-composition-id="lock" data-composition-src="compositions/lock.html"
+        data-start="15" data-duration="18" data-track-index="1" data-track-kind="graphics"
+        data-width="1920" data-height="1080"></div>
+      <div id="offset" data-composition-id="offset" data-composition-src="compositions/offset.html"
+        data-start="33" data-duration="12" data-track-index="1" data-track-kind="graphics"
+        data-width="1920" data-height="1080"></div>
+      <div id="margin" data-composition-id="margin" data-composition-src="compositions/margin.html"
+        data-start="45" data-duration="19" data-track-index="1" data-track-kind="graphics"
+        data-width="1920" data-height="1080"></div>
+      <div id="settle" data-composition-id="settle" data-composition-src="compositions/settle.html"
+        data-start="64" data-duration="16" data-track-index="1" data-track-kind="graphics"
+        data-width="1920" data-height="1080"></div>
+      <div id="end" data-composition-id="end" data-composition-src="compositions/end.html"
+        data-start="80" data-duration="10" data-track-index="1" data-track-kind="graphics"
+        data-width="1920" data-height="1080"></div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; background: #f8fafc; font-family: Inter, sans-serif; }
+    .shot { position: absolute; inset: 0; overflow: hidden; }
+    .cam { position: absolute; left: 0; top: 0; width: 1920px; height: 1200px; }
+    .cam img { display: block; width: 1920px; height: 1200px; }
+    .cap {
+      position: absolute; left: 96px; bottom: 80px; max-width: 1180px;
+      padding: 26px 34px; border-radius: 18px; background: #0f172a; color: #ffffff;
+      font-size: 40px; font-weight: 600; line-height: 1.3; letter-spacing: -0.01em;
+      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.35);
+    }
+    .cap.top { top: 72px; bottom: auto; }
+    .cap span { display: block; margin-bottom: 8px; font-size: 28px; font-weight: 700; letter-spacing: 0.08em; color: #60a5fa; }
+  </style>
+  <div id="root" data-composition-id="settle" data-width="1920" data-height="1080">
+    <div id="settle-s0" class="clip shot" data-hold data-layout-allow-overflow data-start="0" data-duration="5">
+      <div id="settle-s0-cam" class="cam"><img src="assets/shots/13-operator-fixed.png" alt="" /></div>
+      <div id="settle-s0-cap" class="cap"><span>4 · FIXING AND SETTLEMENT</span>At maturity, one fixing from the oracle for every hedge.</div>
+    </div>
+    <div id="settle-s1" class="clip shot" data-hold data-layout-allow-overflow data-start="5" data-duration="5.5">
+      <div id="settle-s1-cam" class="cam"><img src="assets/shots/14-manufacturer-settled.png" alt="" /></div>
+      <div id="settle-s1-cap" class="cap top"><span>4 · FIXING AND SETTLEMENT</span>Settled in USDC on Stellar, at the rate locked.</div>
+    </div>
+    <div id="settle-s2" class="clip shot" data-hold data-layout-allow-overflow data-start="10.5" data-duration="5.5">
+      <div id="settle-s2-cam" class="cam"><img src="assets/shots/16-lp-settled.png" alt="" /></div>
+      <div id="settle-s2-cap" class="cap"><span>4 · FIXING AND SETTLEMENT</span>The fees stay in the vault: the share price goes up.</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.set("#settle-s0-cam", {"scale":1.2,"x":-192,"y":-108,"transformOrigin":"0 0"}, 0);
+    tl.to("#settle-s0-cam", {"scale":1.9,"x":-1728,"y":-277,"duration":0.9,"ease":"power2.inOut"}, 0.8);
+    tl.fromTo("#settle-s0-cap", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.5, ease: "expo.out" }, 0.4);
+    tl.set("#settle-s1-cam", {"scale":1.5,"x":-765,"y":-720,"transformOrigin":"0 0"}, 5);
+    tl.fromTo("#settle-s1-cap", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.5, ease: "expo.out" }, 5.3);
+    tl.set("#settle-s2-cam", {"scale":1,"x":0,"y":0,"transformOrigin":"0 0"}, 10.5);
+    tl.to("#settle-s2-cam", {"scale":1.5,"x":-480,"y":0,"duration":0.9,"ease":"power2.inOut"}, 11.3);
+    tl.fromTo("#settle-s2-cap", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.5, ease: "expo.out" }, 10.9);
+    window.__timelines["settle"] = tl;
+  </script>
+</template>

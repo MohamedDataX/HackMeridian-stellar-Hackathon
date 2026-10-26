@@ -1,0 +1,36 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; background: #f8fafc; font-family: Inter, sans-serif; }
+    .shot { position: absolute; inset: 0; overflow: hidden; }
+    .cam { position: absolute; left: 0; top: 0; width: 1920px; height: 1200px; }
+    .cam img { display: block; width: 1920px; height: 1200px; }
+    .cap {
+      position: absolute; left: 96px; bottom: 80px; max-width: 1180px;
+      padding: 26px 34px; border-radius: 18px; background: #0f172a; color: #ffffff;
+      font-size: 40px; font-weight: 600; line-height: 1.3; letter-spacing: -0.01em;
+      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.35);
+    }
+    .cap.top { top: 72px; bottom: auto; }
+    .cap span { display: block; margin-bottom: 8px; font-size: 28px; font-weight: 700; letter-spacing: 0.08em; color: #60a5fa; }
+  </style>
+  <div id="root" data-composition-id="lock" data-width="1920" data-height="1080">
+    <div id="lock-s0" class="clip shot" data-hold data-layout-allow-overflow data-start="0" data-duration="8">
+      <div id="lock-s0-cam" class="cam"><img src="assets/shots/03-manufacturer-quote.png" alt="" /></div>
+      <div id="lock-s0-cap" class="cap"><span>1 · LOCK A FORWARD</span>The manufacturer receives EUR. K = Reflector spot + rate differential.</div>
+    </div>
+    <div id="lock-s1" class="clip shot" data-hold data-layout-allow-overflow data-start="8" data-duration="10">
+      <div id="lock-s1-cam" class="cam"><img src="assets/shots/04-manufacturer-locked.png" alt="" /></div>
+      <div id="lock-s1-cap" class="cap top"><span>1 · LOCK A FORWARD</span>One signature: 5 % margin deposited, no credit line.</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.set("#lock-s0-cam", {"scale":1,"x":0,"y":0,"transformOrigin":"0 0"}, 0);
+    tl.to("#lock-s0-cam", {"scale":1.55,"x":-1056,"y":-347,"duration":0.9,"ease":"power2.inOut"}, 1.6);
+    tl.fromTo("#lock-s0-cap", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.5, ease: "expo.out" }, 0.5);
+    tl.set("#lock-s1-cam", {"scale":1.3,"x":-288,"y":0,"transformOrigin":"0 0"}, 8);
+    tl.to("#lock-s1-cam", {"scale":1.6,"x":-576,"y":-840,"duration":0.9,"ease":"power2.inOut"}, 12.5);
+    tl.fromTo("#lock-s1-cap", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.5, ease: "expo.out" }, 8.3);
+    window.__timelines["lock"] = tl;
+  </script>
+</template>
