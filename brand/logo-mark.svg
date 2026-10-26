@@ -1,0 +1,9 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="FX Hedge Vault mark">
+  <!-- slate tile -->
+  <rect width="128" height="128" rx="28" fill="#0F172A"/>
+  <!-- hourglass: time to maturity + the X of FX; the two halves are the offsetting hedges -->
+  <path d="M38 32H90L64 61Z" fill="#E2E8F0"/>
+  <path d="M38 96H90L64 67Z" fill="#E2E8F0"/>
+  <!-- the pinch = the locked forward rate / fixing -->
+  <path d="M46 64H82" stroke="#10B981" stroke-width="7" stroke-linecap="round"/>
+</svg>
