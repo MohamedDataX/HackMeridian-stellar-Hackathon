@@ -10,8 +10,10 @@ Zepho connects them. A company locks a forward rate on a monthly maturity. Oppos
 
 The protocol is infrastructure for a regulated partner (FX broker, bank, payment institution) that runs KYC and distributes it to its business clients: **protocol → regulated partner → manufacturers → their European customers**.
 
+- Live site: **https://zepho.pages.dev**
+- Demo film (60 s, Remotion): [video-demo/](video-demo/)
 - White paper: [docs/whitepaper.md](docs/whitepaper.md)
-- Demo script: [docs/demo-script.md](docs/demo-script.md)
+- Demo script and pitch: [docs/demo-script.md](docs/demo-script.md)
 
 ## How it works
 
@@ -65,7 +67,13 @@ STELLAR_NETWORK=testnet stellar scaffold build   # generate clients for the test
 cd app && npx vite                                # http://localhost:5173
 ```
 
-Live site: **https://zepho.pages.dev**. The home page presents Zepho; `/connect` picks a persona, and each persona has its terminal: corporate (quote, lock, margin calls, top-ups), liquidity provider (deposits, net exposure) and operator (oracle rate, maturities, fixing, settlement, close-out).
+Live site: **https://zepho.pages.dev**. One page presents Zepho (the Zepho stack, pricing read from the contract, about). **Launch App** opens `/connect`, where you pick a persona; each persona has its terminal:
+
+- **Manufacturer / Foundry**: Corporate Terminal: quote, **Lock Rate & Deposit Margin**, active positions with margin health, **Start Margin Call**, **Top Up Collateral**, **Settle**.
+- **Liquidity Provider**: vault KPIs, net exposure per side, **Deposit** / **Withdraw**.
+- **Operator**: oracle rate (presets, **Back to Reflector**), **Open Maturity**, **Record Fixing**, **Settle**, **Close Out** after an expired margin call.
+
+Signing needs Freighter on testnet with the matching demo account (see [docs/demo-script.md](docs/demo-script.md)); any page can be browsed without a wallet.
 
 ### Deploy
 
@@ -81,7 +89,7 @@ npm run deploy                          # build app/ and publish to https://zeph
 
 ```bash
 cargo test --workspace                 # 32 contract tests
-cd e2e && npx playwright test smoke    # UI smoke tests
+cd e2e && npx playwright test smoke    # 7 UI smoke tests
 ```
 
 `e2e/tests/fx-demo.spec.ts` plays the whole demo in Chromium against testnet, with real transactions: deposit, two opposite hedges, euro dip, margin call, top-up, fixing, settlement. It needs the demo accounts' secret keys:
@@ -100,12 +108,19 @@ contracts/
   fx_vault/      forwards, margins, margin calls, fixing, settlement
   lp_vault/      liquidity provider vault (OpenZeppelin SEP-56)
   demo_oracle/   Reflector-compatible oracle: relay or demo rate
-app/             React app (Scaffold Stellar)
+app/             React app (Scaffold Stellar, Tailwind): site and terminals
 app-lib/         wallet, network, generated contract clients
 e2e/             Playwright tests
 deployments/     testnet addresses
 docs/            white paper, demo script
+brand/           logo files
+video-demo/      60 s demo film (Remotion, real captures)
+video/           earlier HyperFrames film draft
 ```
+
+## Demo film
+
+60 s, 1920x1080, no voiceover, built from real captures of the site and of a testnet run: brand, quote, lock, netting, margin call and top-up, fixing and settlement, cost vs. risk, logo. Source and render steps: [video-demo/README.md](video-demo/README.md).
 
 ## Limits of the prototype
 
