@@ -58,3 +58,6 @@ video/*.mp4
 video/assets/shots/
 video/.hyperframes/
 video/.thumbnails/
+
+# Cloudflare
+.wrangler/

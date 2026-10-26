@@ -57,7 +57,7 @@ Demo parameters: d = 1.5 %, initial margin 5 %, maintenance 3 %, cap 20 %, vault
 
 ## Run it
 
-Requirements: Rust with the `wasm32v1-none` target, [Stellar CLI](https://developers.stellar.org/docs/tools/cli) 28+, `stellar-scaffold-cli`, Node 20.19+.
+Requirements: Rust with the `wasm32v1-none` target, [Stellar CLI](https://developers.stellar.org/docs/tools/cli) 28+, `stellar-scaffold-cli`, Node 22 (`.nvmrc`).
 
 ```bash
 npm install
@@ -65,7 +65,17 @@ STELLAR_NETWORK=testnet stellar scaffold build   # generate clients for the test
 cd app && npx vite                                # http://localhost:5173
 ```
 
-Pages: **Hedge** (quote and lock), **Hedges** (margin status, calls, top-ups, fixing, settlement), **Vault** (LP deposits, exposure by maturity), **Demo** (operator: oracle rate, maturities).
+Live site: **https://zepho.pages.dev**. The home page presents Zepho; `/connect` picks a persona, and each persona has its terminal: corporate (quote, lock, margin calls, top-ups), liquidity provider (deposits, net exposure) and operator (oracle rate, maturities, fixing, settlement, close-out).
+
+### Deploy
+
+The site is hosted on Cloudflare Pages (project `zepho`). After a change, from the repository root:
+
+```bash
+nvm use                                 # Node 22, from .nvmrc
+npx wrangler@4.152.0 login              # once per machine
+npm run deploy                          # build app/ and publish to https://zepho.pages.dev
+```
 
 ## Tests
 

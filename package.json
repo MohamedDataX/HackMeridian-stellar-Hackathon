@@ -8,7 +8,8 @@
     "start": "npm start --workspace app",
     "lint": "npm run lint --workspaces --if-present",
     "format": "prettier . --write",
-    "format:check": "prettier . --check"
+    "format:check": "prettier . --check",
+    "deploy": "npm run build -w app && cd app && npx -y wrangler@4.152.0 pages deploy dist --project-name zepho --branch main"
   },
   "workspaces": [
     "app",
