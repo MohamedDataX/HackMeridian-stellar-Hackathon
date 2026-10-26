@@ -1,0 +1,9 @@
+<svg width="210" height="120" viewBox="0 0 210 120" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="zepho">
+  <!-- 'z' as hourglass (dark / terminal background) -->
+  <rect x="36" y="44" width="28" height="7" fill="#38BDF8"/>
+  <rect x="36" y="69" width="28" height="7" fill="#38BDF8"/>
+  <path d="M46 51H64L50 60Z" fill="#F8FAFC"/>
+  <path d="M36 69H54L50 60Z" fill="#F8FAFC"/>
+  <path d="M44 60H56" stroke="#10B981" stroke-width="3.5" stroke-linecap="round"/>
+  <text x="70" y="76" font-family="'JetBrains Mono','SF Mono',ui-monospace,monospace" font-weight="700" font-size="46" letter-spacing="2" fill="#F8FAFC">epho</text>
+</svg>
