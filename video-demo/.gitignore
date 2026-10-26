@@ -1,0 +1,6 @@
+node_modules/
+out/
+# Mixkit audio: copied from the video-shotcraft skill, not redistributed here
+public/sfx/
+public/bgm/
+public/AUDIO-ATTRIBUTION.md
