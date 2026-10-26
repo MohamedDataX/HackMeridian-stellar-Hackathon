@@ -110,39 +110,39 @@ export default function CorporateTerminal({ profile }: { profile: Profile }) {
 			<div className="grid lg:grid-cols-12 gap-8">
 				{/* Form Input Side */}
 				<div className="lg:col-span-7 space-y-6">
-					<div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+					<div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
 						<label className="block text-sm font-medium text-slate-900 mb-4">
 							Exposure Direction
 						</label>
 						<div className="grid grid-cols-2 gap-4">
 							<button
 								onClick={() => setDirection("receive")}
-								className={`p-4 rounded-lg border text-left transition-all ${direction === "receive" ? "border-blue-600 bg-blue-50 ring-1 ring-blue-600" : "border-slate-200 hover:border-slate-300"}`}
+								className={`p-4 rounded-lg border text-left transition-all ${direction === "receive" ? "border-sky-500 bg-sky-50 ring-1 ring-sky-500" : "border-slate-200 hover:border-slate-300"}`}
 							>
 								<div className="flex items-center justify-between mb-1">
-									<span className={`font-semibold text-sm ${direction === "receive" ? "text-blue-900" : "text-slate-700"}`}>
+									<span className={`font-semibold text-sm ${direction === "receive" ? "text-sky-900" : "text-slate-700"}`}>
 										Receive EUR
 									</span>
-									<TrendingDown className={`w-4 h-4 ${direction === "receive" ? "text-blue-600" : "text-slate-400"}`} />
+									<TrendingDown className={`w-4 h-4 ${direction === "receive" ? "text-sky-600" : "text-slate-400"}`} />
 								</div>
 								<p className="text-xs text-slate-500">Hedging export revenue</p>
 							</button>
 							<button
 								onClick={() => setDirection("pay")}
-								className={`p-4 rounded-lg border text-left transition-all ${direction === "pay" ? "border-blue-600 bg-blue-50 ring-1 ring-blue-600" : "border-slate-200 hover:border-slate-300"}`}
+								className={`p-4 rounded-lg border text-left transition-all ${direction === "pay" ? "border-sky-500 bg-sky-50 ring-1 ring-sky-500" : "border-slate-200 hover:border-slate-300"}`}
 							>
 								<div className="flex items-center justify-between mb-1">
-									<span className={`font-semibold text-sm ${direction === "pay" ? "text-blue-900" : "text-slate-700"}`}>
+									<span className={`font-semibold text-sm ${direction === "pay" ? "text-sky-900" : "text-slate-700"}`}>
 										Pay EUR
 									</span>
-									<TrendingUp className={`w-4 h-4 ${direction === "pay" ? "text-blue-600" : "text-slate-400"}`} />
+									<TrendingUp className={`w-4 h-4 ${direction === "pay" ? "text-sky-600" : "text-slate-400"}`} />
 								</div>
 								<p className="text-xs text-slate-500">Hedging supplier costs</p>
 							</button>
 						</div>
 					</div>
 
-					<div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm grid sm:grid-cols-2 gap-6">
+					<div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm grid sm:grid-cols-2 gap-6">
 						<div>
 							<label htmlFor="notional" className="block text-sm font-medium text-slate-900 mb-2">
 								Notional Amount (EUR)
@@ -154,7 +154,7 @@ export default function CorporateTerminal({ profile }: { profile: Profile }) {
 									inputMode="decimal"
 									value={notional}
 									onChange={(e) => setNotional(e.target.value)}
-									className="w-full pl-8 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-md font-mono text-slate-900 focus:outline-none focus:ring-1 focus:ring-blue-600"
+									className="w-full pl-8 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-md font-mono text-slate-900 focus:outline-none focus:ring-1 focus:ring-sky-600"
 								/>
 							</div>
 						</div>
@@ -166,7 +166,7 @@ export default function CorporateTerminal({ profile }: { profile: Profile }) {
 								id="maturity"
 								value={maturity?.timestamp.toString() ?? ""}
 								onChange={(e) => setPicked(e.target.value)}
-								className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-md text-slate-900 focus:outline-none focus:ring-1 focus:ring-blue-600"
+								className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-md text-slate-900 focus:outline-none focus:ring-1 focus:ring-sky-600"
 							>
 								{open.length === 0 && <option value="">No open maturity</option>}
 								{open.map((m) => (
@@ -184,27 +184,27 @@ export default function CorporateTerminal({ profile }: { profile: Profile }) {
 
 				{/* Quote Builder Side */}
 				<div className="lg:col-span-5">
-					<div className="bg-slate-900 rounded-xl p-6 shadow-lg border border-slate-800">
+					<div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
 						<div className="flex justify-between items-center mb-6">
-							<h3 className="text-white font-medium">Indicative Quote</h3>
-							<span className="text-[10px] uppercase tracking-wider text-slate-400 border border-slate-700 px-2 py-0.5 rounded flex items-center gap-1">
+							<h3 className="text-slate-900 font-semibold">Indicative Quote</h3>
+							<span className="text-[10px] uppercase tracking-wider text-sky-600 border border-sky-200 bg-sky-50 px-2 py-0.5 rounded flex items-center gap-1">
 								<Info className="w-3 h-3" /> Reflector
 							</span>
 						</div>
 
 						{!maturity && (
-							<p className="text-sm text-slate-400 mb-6">
+							<p className="text-sm text-slate-500 mb-6">
 								No maturity is open: the Operator opens one.
 							</p>
 						)}
-						{quote.error && <p className="text-sm text-rose-400 mb-6">{explain(quote.error)}</p>}
+						{quote.error && <p className="text-sm text-rose-600 mb-6">{explain(quote.error)}</p>}
 
 						<div className="space-y-4 mb-8">
 							<Row label="Spot (EUR/USD)" value={q ? fmtRate(q.spot, 4) : "—"} />
 							<Row
 								label="Rate Differential"
 								value={params ? `+${(Number(params.carry_bps) / 100).toFixed(2)}% p.a.` : "—"}
-								valueClass="text-blue-400"
+								valueClass="text-sky-600"
 							/>
 							<Row
 								label="Forward Rate (K)"
@@ -213,8 +213,8 @@ export default function CorporateTerminal({ profile }: { profile: Profile }) {
 							/>
 							<Row label="USD Notional" value={q ? `$${fmtAmount(q.notional_usd)}` : "—"} />
 							<div className="flex justify-between items-center pt-2">
-								<span className="text-slate-300 font-medium">Initial Margin ({imPct}%)</span>
-								<span className="font-mono font-semibold text-lg text-emerald-400">
+								<span className="text-slate-700 font-medium">Initial Margin ({imPct}%)</span>
+								<span className="font-mono font-semibold text-lg text-emerald-600">
 									{q ? `$${fmtAmount(q.margin)}` : "—"}
 								</span>
 							</div>
@@ -223,7 +223,7 @@ export default function CorporateTerminal({ profile }: { profile: Profile }) {
 						<button
 							onClick={() => void lock()}
 							disabled={!address || !q || Boolean(pending)}
-							className="w-full py-3.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2"
+							className="w-full py-3.5 bg-sky-500 hover:bg-sky-600 disabled:opacity-50 text-white rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-2"
 						>
 							<Lock className="w-4 h-4" />
 							{pending === "Hedge" ? "Signing…" : "Lock Rate & Deposit Margin"}
@@ -261,7 +261,7 @@ export default function CorporateTerminal({ profile }: { profile: Profile }) {
 const Row = ({
 	label,
 	value,
-	valueClass = "text-slate-300",
+	valueClass = "text-slate-700",
 	strong = false,
 }: {
 	label: string
@@ -269,9 +269,9 @@ const Row = ({
 	valueClass?: string
 	strong?: boolean
 }) => (
-	<div className="flex justify-between items-center pb-3 border-b border-slate-800">
-		<span className={strong ? "text-slate-300 font-medium" : "text-slate-400 text-sm"}>{label}</span>
-		<span className={`font-mono ${strong ? "text-white font-semibold text-lg" : valueClass}`}>{value}</span>
+	<div className="flex justify-between items-center pb-3 border-b border-slate-100">
+		<span className={strong ? "text-slate-700 font-medium" : "text-slate-500 text-sm"}>{label}</span>
+		<span className={`font-mono ${strong ? "text-slate-900 font-semibold text-lg" : valueClass}`}>{value}</span>
 	</div>
 )
 
@@ -304,7 +304,7 @@ function PositionCard({
 	else if (deficit) status = "Under Margin"
 
 	return (
-		<div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden p-6 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+		<div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden p-6 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
 			<div className="md:col-span-3">
 				<div className="text-xs text-slate-400 font-semibold uppercase tracking-wider mb-1">Contract ID</div>
 				<div className="font-mono text-slate-900 font-semibold mb-1">NDF-{h.id}</div>
@@ -377,7 +377,7 @@ function PositionCard({
 							<button
 								onClick={() => void run("Settle", () => send(fxVault.settle({ id: h.id }, opts), signTransaction))}
 								disabled={!address || Boolean(pending)}
-								className="w-full mt-3 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white rounded text-xs font-medium transition-colors"
+								className="w-full mt-3 py-2 bg-sky-500 hover:bg-sky-600 disabled:opacity-50 text-white rounded text-xs font-medium transition-colors"
 							>
 								Settle
 							</button>

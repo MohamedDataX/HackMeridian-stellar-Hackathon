@@ -111,12 +111,13 @@ const FX_ERRORS: Record<number, string> = {
 /** Readable message for a wallet, simulation or contract error. */
 export const explain = (e: unknown): string => {
 	const text = e instanceof Error ? e.message : String(e)
+	// Token errors first: the USDC contract's codes overlap the vault's
+	if (/trustline/i.test(text)) return "This account has no tUSDC trustline"
+	if (/balance is not sufficient|resulting balance/i.test(text))
+		return "Not enough tUSDC"
 	const code = /Error\(Contract, #(\d+)\)/.exec(text)?.[1]
 	const known = code ? FX_ERRORS[Number(code)] : undefined
 	if (known) return known
-	if (/balance is not sufficient|resulting balance/i.test(text))
-		return "Not enough tUSDC"
-	if (/trustline/i.test(text)) return "This account has no tUSDC trustline"
 	return errorMessage(e)
 }
 

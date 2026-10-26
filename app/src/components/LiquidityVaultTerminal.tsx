@@ -67,7 +67,7 @@ export default function LiquidityVaultTerminal() {
 			<div className="grid lg:grid-cols-3 gap-8">
 				{/* Left: Net Exposure Gauge */}
 				<div className="lg:col-span-2">
-					<div className="bg-white p-8 rounded-xl border border-slate-200 shadow-sm h-full">
+					<div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm h-full">
 						<div className="mb-8">
 							<h3 className="text-lg font-semibold text-slate-900">Net Exposure Allocation</h3>
 							<p className="text-sm text-slate-500 mt-1">The vault only bears risk on the unhedged delta.</p>
@@ -82,7 +82,7 @@ export default function LiquidityVaultTerminal() {
 							{/* Split Progress Bar */}
 							<div className="h-6 w-full bg-slate-100 rounded-full overflow-hidden flex border border-slate-200">
 								<div className="h-full bg-slate-800 transition-all duration-1000" style={{ width: `${buyPct}%` }}></div>
-								<div className="h-full bg-blue-500 transition-all duration-1000" style={{ width: `${100 - buyPct}%` }}></div>
+								<div className="h-full bg-sky-500 transition-all duration-1000" style={{ width: `${100 - buyPct}%` }}></div>
 							</div>
 
 							<div className="flex justify-between text-xs text-slate-500 font-mono mt-4">
@@ -98,7 +98,7 @@ export default function LiquidityVaultTerminal() {
 
 				{/* Right: Manage Position */}
 				<div className="lg:col-span-1">
-					<div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+					<div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
 						<h3 className="text-slate-900 font-semibold mb-6">Manage Capital</h3>
 
 						<div className="bg-slate-50 border border-slate-100 rounded-xl p-5 mb-6">
@@ -122,7 +122,7 @@ export default function LiquidityVaultTerminal() {
 										placeholder="0.00"
 										value={amount}
 										onChange={(e) => setAmount(e.target.value)}
-										className="w-full bg-white border border-slate-200 rounded-lg px-4 py-3 text-slate-900 font-mono focus:outline-none focus:ring-1 focus:ring-blue-600 transition-all"
+										className="w-full bg-white border border-slate-200 rounded-lg px-4 py-3 text-slate-900 font-mono focus:outline-none focus:ring-1 focus:ring-sky-600 transition-all"
 									/>
 									<button
 										onClick={() => usdc !== undefined && setAmount(fmtAmount(usdc, 7).replace(/,/g, ""))}
@@ -158,7 +158,7 @@ export default function LiquidityVaultTerminal() {
 }
 
 const Kpi = ({ label, value, accent = false }: { label: string; value: string; accent?: boolean }) => (
-	<div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+	<div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
 		<div className="text-[11px] text-slate-500 uppercase tracking-wider font-semibold mb-2">{label}</div>
 		<div className={`text-2xl font-semibold font-mono ${accent ? "text-emerald-600" : "text-slate-900"}`}>
 			{value} <span className="text-sm text-slate-400 font-sans font-normal">USDC</span>

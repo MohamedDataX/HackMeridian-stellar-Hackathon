@@ -18,7 +18,7 @@ export default function Login() {
 			</button>
 
 			<div className="bg-white p-10 rounded-2xl shadow-xl border border-slate-200 max-w-md w-full">
-				<div className="w-12 h-12 mb-6 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center border border-blue-100">
+				<div className="w-12 h-12 mb-6 bg-sky-50 text-sky-600 rounded-xl flex items-center justify-center border border-sky-100">
 					<Wallet className="w-6 h-6" />
 				</div>
 
@@ -35,13 +35,13 @@ export default function Login() {
 							<button
 								key={p.id}
 								onClick={() => void navigate(`/app/${p.id}`)}
-								className={`w-full flex items-center gap-4 bg-white border hover:border-blue-600 hover:bg-blue-50 hover:shadow-sm text-left p-4 rounded-xl transition-all duration-200 group ${connected ? "border-blue-600" : "border-slate-200"}`}
+								className={`w-full flex items-center gap-4 bg-white border hover:border-sky-600 hover:bg-sky-50 hover:shadow-sm text-left p-4 rounded-xl transition-all duration-200 group ${connected ? "border-sky-600" : "border-slate-200"}`}
 							>
-								<div className="w-10 h-10 rounded-lg bg-slate-100 group-hover:bg-blue-100 flex items-center justify-center text-slate-600 group-hover:text-blue-600 transition-colors">
+								<div className="w-10 h-10 rounded-lg bg-slate-100 group-hover:bg-sky-100 flex items-center justify-center text-slate-600 group-hover:text-sky-600 transition-colors">
 									<Icon className="w-5 h-5" />
 								</div>
 								<div>
-									<div className="font-semibold text-slate-900 group-hover:text-blue-700">
+									<div className="font-semibold text-slate-900 group-hover:text-sky-700">
 										{p.name}
 									</div>
 									<div className="text-xs text-slate-500 mt-0.5">{p.role}</div>

@@ -3,8 +3,9 @@ import {
 	disconnectWallet,
 	shortAddress,
 } from "@stellar-scaffold/app-lib"
-import { ChevronDown, Landmark, LogOut, Wallet } from "lucide-react"
+import { ChevronDown, LogOut, Wallet } from "lucide-react"
 import { Navigate, useNavigate, useParams } from "react-router-dom"
+import Brand from "../components/Brand"
 import CorporateTerminal from "../components/CorporateTerminal"
 import LiquidityVaultTerminal from "../components/LiquidityVaultTerminal"
 import OperatorTerminal from "../components/OperatorTerminal"
@@ -27,15 +28,10 @@ export default function Dashboard() {
 	return (
 		<div className="flex flex-col h-screen">
 			{/* HEADER */}
-			<header className="bg-white border-b border-slate-200 h-16 shrink-0 flex items-center justify-between px-6 sticky top-0 z-20">
+			<header className="bg-white border-b border-slate-100 h-16 shrink-0 flex items-center justify-between px-6 sticky top-0 z-20">
 				<div className="flex items-center gap-6">
-					<div className="flex items-center gap-3">
-						<div className="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center">
-							<Landmark className="text-white w-4 h-4" />
-						</div>
-						<span className="font-semibold text-slate-900 tracking-tight">FX Hedge Vault</span>
-					</div>
-					<div className="hidden md:flex items-center gap-2 px-3 py-1 rounded bg-amber-50 border border-amber-200 text-amber-700 text-[10px] font-bold uppercase tracking-wider">
+					<Brand size="text-xl" />
+					<div className="hidden md:flex items-center gap-2 px-3 py-1 rounded bg-sky-50 border border-sky-200 text-sky-700 text-[10px] font-bold uppercase tracking-wider">
 						Stellar Testnet
 					</div>
 				</div>
@@ -47,7 +43,7 @@ export default function Dashboard() {
 							value={profile.id}
 							onChange={(e) => void navigate(`/app/${e.target.value}`)}
 							aria-label="Persona"
-							className="appearance-none bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-2 focus:ring-blue-600 outline-none block pl-9 pr-8 py-2 font-medium cursor-pointer hover:bg-slate-100 transition-colors"
+							className="appearance-none bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-2 focus:ring-sky-600 outline-none block pl-9 pr-8 py-2 font-medium cursor-pointer hover:bg-slate-100 transition-colors"
 						>
 							{Object.values(PROFILES).map((p) => (
 								<option key={p.id} value={p.id}>
@@ -64,14 +60,14 @@ export default function Dashboard() {
 							title={mismatch ? `Switch Freighter to the ${profile.name} account to sign` : address}
 							className={`hidden sm:flex items-center gap-2 px-3 py-2 rounded-lg border text-xs font-medium font-mono ${mismatch ? "bg-amber-50 border-amber-200 text-amber-700" : "bg-slate-50 border-slate-200 text-slate-600"}`}
 						>
-							<Wallet className={`w-3.5 h-3.5 ${mismatch ? "text-amber-600" : "text-blue-600"}`} />
+							<Wallet className={`w-3.5 h-3.5 ${mismatch ? "text-amber-600" : "text-sky-600"}`} />
 							{shortAddress(address)}
 						</div>
 					) : (
 						<button
 							onClick={() => void connectWallet()}
 							disabled={isPending}
-							className="flex items-center gap-2 px-3 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium"
+							className="flex items-center gap-2 px-3 py-2 rounded-lg bg-sky-500 hover:bg-sky-600 text-white text-xs font-medium"
 						>
 							<Wallet className="w-3.5 h-3.5" /> Connect
 						</button>

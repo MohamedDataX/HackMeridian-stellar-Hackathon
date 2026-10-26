@@ -3,12 +3,14 @@ import Dashboard from "./pages/Dashboard"
 import Debug from "./pages/Debug"
 import Landing from "./pages/Landing"
 import Login from "./pages/Login"
+import Pricing from "./pages/Pricing"
 
 function App() {
 	return (
-		<div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900 flex flex-col">
+		<div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-sky-100 selection:text-sky-900 flex flex-col">
 			<Routes>
 				<Route path="/" element={<Landing />} />
+				<Route path="/pricing" element={<Pricing />} />
 				<Route path="/connect" element={<Login />} />
 				<Route path="/app/:profileId" element={<Dashboard />} />
 				<Route path="/debug" element={<Debug />} />

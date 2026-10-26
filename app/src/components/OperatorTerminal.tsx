@@ -6,6 +6,7 @@ import {
 	useMaturities,
 	useNow,
 	useOracle,
+	useParams,
 } from "../hooks/useFx"
 import { useWallet } from "../hooks/useWallet"
 import { fmtRate, parseRate, send, timeLeft } from "../lib/fx"
@@ -19,6 +20,7 @@ export default function OperatorTerminal() {
 	const { data: oracle } = useOracle()
 	const { data: maturities = [] } = useMaturities()
 	const { data: hedges = [] } = useHedges()
+	const { data: params } = useParams()
 	const { run, pending } = useAction()
 	const [minutes, setMinutes] = useState("4")
 	const [days, setDays] = useState("360")
@@ -28,6 +30,15 @@ export default function OperatorTerminal() {
 	const due = maturities.filter((m) => m.fixing == null && Number(m.timestamp) <= now)
 	const fixed = new Set(maturities.filter((m) => m.fixing != null).map((m) => m.timestamp.toString()))
 	const toSettle = hedges.filter((h) => h.status.tag === "Open" && fixed.has(h.maturity.toString()))
+	// Margin calls whose top-up delay has run out: anyone can close them out
+	const expired = hedges.filter(
+		(h) =>
+			h.status.tag === "Open" &&
+			!fixed.has(h.maturity.toString()) &&
+			h.call_since != null &&
+			params != null &&
+			Number(h.call_since) + Number(params.call_delay) <= now,
+	)
 
 	const setPrice = (p: string) =>
 		run("Set rate", () => send(demoOracle.set_price({ price: parseRate(p) }, opts), signTransaction))
@@ -40,7 +51,7 @@ export default function OperatorTerminal() {
 			</div>
 
 			<div className="grid lg:grid-cols-3 gap-6">
-				<div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+				<div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
 					<div className="text-[11px] text-slate-500 uppercase tracking-wider font-semibold mb-2">EUR/USD Oracle</div>
 					<div className="text-3xl font-semibold font-mono text-slate-900">
 						{oracle?.demo ? fmtRate(oracle.demo.price, 4) : "…"}
@@ -62,7 +73,7 @@ export default function OperatorTerminal() {
 					</div>
 				</div>
 
-				<div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+				<div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
 					<div className="text-[11px] text-slate-500 uppercase tracking-wider font-semibold mb-4">Open Maturity</div>
 					<div className="grid grid-cols-2 gap-3 mb-4">
 						<label className="text-xs text-slate-500">
@@ -82,15 +93,15 @@ export default function OperatorTerminal() {
 							pricing_secs: BigInt(Number(days) * 86_400),
 						}, opts), signTransaction))}
 						disabled={busy}
-						className="w-full py-2.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white rounded-lg text-sm font-medium"
+						className="w-full py-2.5 bg-sky-500 hover:bg-sky-600 disabled:opacity-50 text-white rounded-lg text-sm font-medium"
 					>
 						Open Maturity
 					</button>
 				</div>
 
-				<div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+				<div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
 					<div className="text-[11px] text-slate-500 uppercase tracking-wider font-semibold mb-4">Fixing & Settlement</div>
-					{due.length === 0 && toSettle.length === 0 && (
+					{due.length === 0 && toSettle.length === 0 && expired.length === 0 && (
 						<p className="text-sm text-slate-500">
 							{maturities.some((m) => m.fixing == null && Number(m.timestamp) > now)
 								? `Next maturity in ${timeLeft(Math.min(...maturities.filter((m) => m.fixing == null && Number(m.timestamp) > now).map((m) => Number(m.timestamp))), now)}`
@@ -105,10 +116,17 @@ export default function OperatorTerminal() {
 								Record Fixing
 							</button>
 						))}
+						{expired.map((h) => (
+							<button key={`close-${h.id}`} disabled={busy}
+								onClick={() => void run("Close out", () => send(fxVault.close_out({ id: h.id }, opts), signTransaction))}
+								className="w-full py-2.5 bg-rose-600 hover:bg-rose-700 disabled:opacity-50 text-white rounded-lg text-sm font-medium">
+								Close Out NDF-{h.id} ({Number(params?.penalty_bps ?? 100n) / 100}% penalty)
+							</button>
+						))}
 						{toSettle.map((h) => (
 							<button key={h.id} disabled={busy}
 								onClick={() => void run("Settle", () => send(fxVault.settle({ id: h.id }, opts), signTransaction))}
-								className="w-full py-2.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white rounded-lg text-sm font-medium">
+								className="w-full py-2.5 bg-sky-500 hover:bg-sky-600 disabled:opacity-50 text-white rounded-lg text-sm font-medium">
 								Settle NDF-{h.id}
 							</button>
 						))}
