@@ -30,7 +30,7 @@ Backup: if the live demo fails, play `e2e/tests/fx-demo.spec.ts` in headed mode 
 
 ### 1. Cover
 
-**FX Hedge Vault** — Lock your EUR/USD rate from order to delivery. USDC settlement on Stellar.
+**Zepho** — Lock your EUR/USD rate from order to delivery. USDC settlement on Stellar.
 Genesis track · Stellar Composed · B2B2B.
 
 ### 2. The solution

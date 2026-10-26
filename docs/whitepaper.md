@@ -1,10 +1,10 @@
-# FX Hedge Vault — White paper
+# Zepho — White paper
 
 Version 2 · October 2026 · Stellar testnet prototype
 
 ## Summary
 
-FX Hedge Vault lets companies in the semiconductor supply chain lock a EUR/USD forward rate between the order and the delivery. Each hedge is a forward contract settled in USDC. Companies with opposite exposures offset each other on the same monthly maturity. A liquidity provider vault backs only the part that does not offset, and earns the fees.
+Zepho lets companies in the semiconductor supply chain lock a EUR/USD forward rate between the order and the delivery. Each hedge is a forward contract settled in USDC. Companies with opposite exposures offset each other on the same monthly maturity. A liquidity provider vault backs only the part that does not offset, and earns the fees.
 
 The protocol is infrastructure. A regulated partner (FX broker, bank or payment institution) distributes it, runs KYC and holds the licence. The model is B2B2B: protocol, regulated partner, manufacturers, then their European customers, who keep a stable price.
 
