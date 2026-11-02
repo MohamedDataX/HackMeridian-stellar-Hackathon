@@ -40,7 +40,6 @@ flowchart LR
 ## Links
 
 - Live app: https://zepho.pages.dev
-- Demo film (60 s): [video-demo/](video-demo/)
 - White paper: [docs/whitepaper.md](docs/whitepaper.md) · Demo script: [docs/demo-script.md](docs/demo-script.md)
 
 ## Testnet contracts
